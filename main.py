@@ -19,6 +19,7 @@ h = cap.get(4) #height
 mx = int(w/8)
 my = int(h/8)
 
+#all variables
 font = cv2.FONT_HERSHEY_SIMPLEX
 objectss = []
 crossed = []
@@ -36,23 +37,20 @@ hei3 = 35
 
 while(cap.isOpened()):
     ret, frame = cap.read() #frame read
-    
     fgmask = bgsub.apply(frame) #subtractor use
     try:
-        ret,imBin = cv2.threshold(fgmask,200,255,cv2.THRESH_BINARY)
-        
+        ret,imBin = cv2.threshold(fgmask,200,255,cv2.THRESH_BINARY)   
         mask = cv2.morphologyEx(imBin,cv2.MORPH_OPEN, kernelOpen) #Opening
-        mask = cv2.morphologyEx(mask,cv2.MORPH_CLOSE,kernelClose) #Closing
-        
+        mask = cv2.morphologyEx(mask,cv2.MORPH_CLOSE,kernelClose) #Closing    
     except:
         print('EOF')
         break
     
-    _, contours0, hierarchy = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE)
+    _, contours0, hierarchy = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE) #create contours
     for cunt in contours0:
         #cv2.drawContorus(frame,cunt,-1,(0,255,0), 3, 8)
         area = cv2.contourArea(cunt)
-        if (area > areaMin and area < areaMax):
+        if (area > areaMin and area < areaMax): #contours treshold check
             M = cv2.moments(cunt)
             cx = int(M['m10']/M['m00'])
             cy = int(M['m01']/M['m00'])
@@ -78,13 +76,14 @@ while(cap.isOpened()):
             #img = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)            
             #cv2.drawContours(frame, cnt, -1, (0,255,0), 3)
     
+    #checking if object is a person to count
     for i in objectss:
         if i.getAge() > 15:
             if i not in crossed:
                 if (i.getY()) >= downlimit and (i.getY()) <= uplimit:
                     crossed.append(i)
                     
-    
+    #show video and numbeer
     num = len(crossed)
     strin = str(num)
     cv2.putText(frame,strin,(mx,my),font,2,(255,255,255),1,cv2.LINE_AA)

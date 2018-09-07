@@ -18,15 +18,17 @@ class MyObject:
     
     def getY(self):
         return self.y
-        
+      
+    #how long is the object in the video
     def getAge(self):
         return self.age
     
+    def setAge(self):
+        self.age += 1   
+        
+    #how long since the object is not in the video
     def getDeath(self):
         return self.death
-        
-    def setAge(self):
-        self.age += 1
         
     def setDeath(self):
         self.death +=1
