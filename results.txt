@@ -1,0 +1,28 @@
+		wid3=		
+		hei3=	
+		areaMin=
+		age>	
+				
+
+video1 - 4		5	
+video2 - 25		21
+video3 - 16		11
+video4 - 23		20
+video5 - 17		12
+video6 - 27		18
+video7 - 28		25
+video8 - 22		22
+video9 - 10		6
+video10 - 22		24	
+
+
+
+
+
+
+
+
+
+
+
+
