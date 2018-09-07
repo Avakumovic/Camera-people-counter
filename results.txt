@@ -1,19 +1,20 @@
-		wid3=		
-		hei3=	
-		areaMin=
-		age>	
-				
+			wid3=	35	
+			hei3=	25
+			areaMin=25
+			age>	15
 
-video1 - 4		5	
-video2 - 25		21
-video3 - 16		11
-video4 - 23		20
-video5 - 17		12
-video6 - 27		18
-video7 - 28		25
-video8 - 22		22
-video9 - 10		6
-video10 - 22		24	
+Real value:		Results:			
+
+video1 -   4			5	
+video2 -   25			21
+video3 -   16			11
+video4 -   23			20
+video5 -   17			12
+video6 -   27			18
+video7 -   28			25
+video8 -   22			22
+video9 -   10			6
+video10 -  22			24	
 
 
 
