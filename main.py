@@ -9,7 +9,8 @@ import numpy as np
 import cv2
 import objects
 
-cap = cv2.VideoCapture('videos/video1.mp4')
+video = str('videos/video1.mp4')
+cap = cv2.VideoCapture(video)
 bgsub = cv2.createBackgroundSubtractorMOG2(detectShadows = True) #background subtractor
 kernelOpen = np.ones((3,3),np.uint8)
 kernelClose = np.ones((11,11),np.uint8)
@@ -34,6 +35,8 @@ leftlimit = int(5*(w/16))
 rightlimit = int(11*(w/16))
 wid3 = 25
 hei3 = 35
+expected = 0
+accur = 0
 
 while(cap.isOpened()):
     ret, frame = cap.read() #frame read
@@ -43,7 +46,7 @@ while(cap.isOpened()):
         mask = cv2.morphologyEx(imBin,cv2.MORPH_OPEN, kernelOpen) #Opening
         mask = cv2.morphologyEx(mask,cv2.MORPH_CLOSE,kernelClose) #Closing    
     except:
-        print('EOF')
+        print(' ')
         break
     
     _, contours0, hierarchy = cv2.findContours(mask,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_NONE) #create contours
@@ -70,8 +73,7 @@ while(cap.isOpened()):
                 o = objects.MyObject(oid,cx,cy,age,death)
                 objectss.append(o)
                 oid += 1
-                
-                
+                              
             cv2.circle(frame,(cx,cy), 5, (0,0,255), -1)
             #img = cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)            
             #cv2.drawContours(frame, cnt, -1, (0,255,0), 3)
@@ -89,23 +91,37 @@ while(cap.isOpened()):
     cv2.putText(frame,strin,(mx,my),font,2,(255,255,255),1,cv2.LINE_AA)
     cv2.imshow('Counter',frame)
     
-    k = cv2.waitKey(30) & 0xff
-    if k==27:
+    key = cv2.waitKey(30) & 0xff
+    if key==27:
         break
-    
+
 cap.release() #realease video
 cv2.destroyAllWindows() #close all openCV windows
-    
-                
-                    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+if video == 'videos/video1.mp4':
+    expected = 4
+if video == 'videos/video2.mp4':
+    expected = 25
+if video == 'videos/video3.mp4':
+    expected = 16
+if video == 'videos/video4.mp4':
+    expected = 23
+if video == 'videos/video5.mp4':
+    expected = 17
+if video == 'videos/video6.mp4':
+    expected = 27
+if video == 'videos/video7.mp4':
+    expected = 28
+if video == 'videos/video8.mp4':
+    expected = 22
+if video == 'videos/video9.mp4':
+    expected = 10
+if video == 'videos/video10.mp4':
+    expected = 22
+
+if num >= expected:
+    accur = (float(expected)/num)*100
+else:
+    accur = (float(num)/expected)*100
+
+print accur,'% accuracy'
